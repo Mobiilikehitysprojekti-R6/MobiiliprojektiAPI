@@ -21,7 +21,7 @@ db.connect((err) => {
 // Routes 
 app.use('/register', require('./routes/register'))
 app.use('/login', passport.authenticate('BasicStrategy', {session: false}), require('./routes/login'))
-
+app.use('/tasks', require('./routes/tasks'))
 
 const port = 3000
 app.listen(port, () => {
