@@ -1,5 +1,8 @@
+const jwt = require('jsonwebtoken')
 exports.login = (req, res) => {
-
-    // EI OO VALMIS
-    res.json("Logged in")
+    const options = {
+        expiresIn: "1d"
+    }
+    const generatedJWT = jwt.sign(req.user, process.env.JWT_KEY, options);
+    res.json({jwt: generatedJWT});
 }
