@@ -10,13 +10,13 @@ exports.registerUser = (req, res) => {
             if(error){
                 // Send error if username is taken
                 if(error.code == "ER_DUP_ENTRY"){
-                    res.send("Username is already taken")
+                    res.status(409).send("Username is already taken")
                 // Send error msg if something else is wrong
                 } else {
                     res.send(error.message)
                 }
             } else {
-                res.send("Registered")
+                res.status(201).send("Registered")
                 console.log("Registered")
             }
 
