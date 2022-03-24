@@ -7,4 +7,4 @@ router.post("/", taskController.addTask)
 router.put("/", taskController.editTask)
 router.delete("/", taskController.removeTask)
 
-module.exports = router
+module.exports = router;

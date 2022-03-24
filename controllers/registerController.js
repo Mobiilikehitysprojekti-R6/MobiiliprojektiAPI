@@ -3,10 +3,10 @@ const bcrypt = require('bcrypt');
 
 exports.registerUser = (req, res) => {
     const salt = bcrypt.genSaltSync(5);
-    const hashedPassword = bcrypt.hashSync(req.body.Password, salt);
+    const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
-    if(req.body.Username.length > 0 && req.body.Password.length > 0){
-        db.query(`INSERT into users VALUES(null, "${req.body.Username}", "${hashedPassword}")`, (error, result) => {
+    if(req.body.username.length > 0 && req.body.password.length > 0){
+        db.query(`INSERT into users VALUES(null, "${req.body.username}", "${hashedPassword}", 0)`, (error, result) => {
             if(error){
                 // Send error if username is taken
                 if(error.code == "ER_DUP_ENTRY"){
@@ -22,6 +22,6 @@ exports.registerUser = (req, res) => {
 
         })
     } else {
-        res.send("Failed to register. Check inputs.")
+        res.status(400).send("Failed to register. Check inputs.")
     }
 }

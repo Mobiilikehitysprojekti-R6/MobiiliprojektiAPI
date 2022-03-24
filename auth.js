@@ -10,7 +10,8 @@ const strategy = new BasicStrategy((username, password, done) => {
             if(bcrypt.compareSync(password, result[0].Password) === true) {
                 done(null, {      
                     idUser: result[0].idUser,
-                    username: result[0].Username
+                    username: result[0].Username,
+                    premiumAccount: result[0].PremiumAccount
                 })
             } else {
                 done(null, false);
