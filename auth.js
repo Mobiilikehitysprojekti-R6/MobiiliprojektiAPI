@@ -2,7 +2,7 @@ const BasicStrategy = require('passport-http').BasicStrategy
 const bcrypt = require('bcrypt');
 const db = require('./database')
 const strategy = new BasicStrategy((username, password, done) => {
-    db.query(`SELECT * from users WHERE Username="${username}"`, (error, result) => {
+    db.query(`SELECT * FROM Users WHERE Username="${username}"`, (error, result) => {
         if(error) console.log(error.code)
         if(result.length == 0){
             done(null, false)
