@@ -14,7 +14,7 @@ exports.addTask = (req, res) => {
     if(!req.body || Object.keys(req.body).length === 0) return res.status(400).send("request body is empty or missing")
     db.query(`INSERT INTO Tasks VALUES(${req.body.idUser}, null, "${req.body.title}",
             "${req.body.location}", ${req.body.day_of_month}, "${req.body.start_time}", ${req.body.duration},
-                "${req.body.color}", null, null)`, (error, result ) => {
+                "${req.body.color}", 0, 0)`, (error, result ) => {
                     
         if(error){
             console.log(error.message)
