@@ -40,3 +40,25 @@ exports.editPassword = (req, res) => {
         }
     })
 }
+//tämä haetaan luultavasti kirjautumisen kanssa
+exports.getSettings = (req, res) => {
+    db.query(`SELECT EnableNotifications, ThemeColor FROM Settings WHERE Users_idUser=${req.params.idUser}`, (error, result) => {
+        if(error){
+            console.log(error.message)
+            return res.status(500).send("error")
+        } 
+        return res.json(result)
+    })
+}
+
+exports.editThemecolor = (req, res) => {
+    db.query(`UPDATE Settings SET ThemeColor = '${req.body.newColor}' WHERE Users_idUser = ${req.params.idUser}`, (error, result) => {
+        if(error){
+            console.log(error.message)
+            res.status(500).send("error")
+        } else {
+            console.log("New ThemeColor set");
+            res.status(200).send("New ThemeColor set");
+        }
+    })
+}
