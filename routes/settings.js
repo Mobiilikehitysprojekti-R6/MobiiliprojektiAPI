@@ -4,7 +4,7 @@ const router = express.Router()
 
 router.put("/editpassword", settingsController.editPassword)
 router.put("/edittheme/:idUser", settingsController.editThemecolor)
-router.get("/settings/:idUser", settingsController.getSettings)
+router.get("/:idUser", settingsController.getSettings)
 
 
 module.exports = router;
