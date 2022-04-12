@@ -43,7 +43,7 @@ exports.editPassword = (req, res) => {
 
 //tämä haetaan luultavasti kirjautumisen kanssa
 exports.getSettings = (req, res) => {
-    db.query(`SELECT EnableNotifications, ThemeColor FROM Settings WHERE Users_idUser=${req.params.idUser}`, (error, result) => {
+    db.query(`SELECT EnableNotifications, ThemeColor, SleepTimeStart, SleepTimeDuration FROM Settings WHERE Users_idUser=${req.params.idUser}`, (error, result) => {
         if(error){
             console.log(error.message)
             return res.status(500).send("error")
