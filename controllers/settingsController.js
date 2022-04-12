@@ -40,6 +40,7 @@ exports.editPassword = (req, res) => {
         }
     })
 }
+
 //tämä haetaan luultavasti kirjautumisen kanssa
 exports.getSettings = (req, res) => {
     db.query(`SELECT EnableNotifications, ThemeColor FROM Settings WHERE Users_idUser=${req.params.idUser}`, (error, result) => {
@@ -48,6 +49,19 @@ exports.getSettings = (req, res) => {
             return res.status(500).send("error")
         } 
         return res.json(result)
+    })
+}
+
+exports.postSettings = (req, res) => {
+    db.query(`INSERT INTO Settings VALUES(${req.params.idUser}, ${req.body.enableNotifications},'${req.body.themeColor}',
+        '${req.body.sleepTimeStart}', ${req.body.sleepTimeDuration})`, (error, result) => {
+
+        if(error) {
+            console.log(error.message)
+            return res.status(500).send("error")
+        } 
+        console.log(`Settings for userID ${req.params.idUser } post ok`)
+        return res.send(201);
     })
 }
 
