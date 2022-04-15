@@ -48,6 +48,7 @@ exports.getSettings = (req, res) => {
             console.log(error.message)
             return res.status(500).send("error")
         } 
+        console.log(result)
         return res.json(result)
     })
 }
@@ -75,4 +76,21 @@ exports.editThemecolor = (req, res) => {
             res.status(200).send("New ThemeColor set");
         }
     })
+}
+
+exports.editPremiumStatus = (req, res) => {
+    if((req.body.premiumStatus) < 0 || (req.body.premiumStatus) > 1 || !req.body) {
+        res.status(400).send("input can only be 1 or 0")
+    } else {
+
+    db.query(`UPDATE Users SET PremiumAccount = '${req.body.premiumStatus}' WHERE idUser = ${req.params.idUser}`, (error, result) => {
+        if(error){
+            console.log(error.message)  
+            res.status(500).send("error")
+        } else {
+            console.log("Users premium status updated");
+            res.status(200).send("Users premium status updated");
+        }
+    })
+    }
 }
