@@ -94,3 +94,17 @@ exports.editPremiumStatus = (req, res) => {
     })
     }
 }
+
+exports.editSleepInformation = (req, res) => {
+    db.query(`UPDATE Settings SET SleepTimeStart = '${req.body.sleepTimeStart}', SleepTimeDuration= '${req.body.sleepTimeDuration}' WHERE Users_idUser = ${req.params.idUser}`, (error, result) => {
+        if(error){
+            console.log(error.message)  
+            res.status(500).send("error")
+        } else {
+            console.log("Users sleep settings updated");
+            res.status(200).send("Users sleep settings updated");
+        }
+    })
+    
+}
+
