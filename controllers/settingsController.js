@@ -95,6 +95,24 @@ exports.editPremiumStatus = (req, res) => {
     }
 }
 
+exports.editNotificationStatus = (req, res) => {
+    if((req.body.notificationStatus) < 0 || (req.body.notificationStatus) > 1 || !req.body) {
+        res.status(400).send("input can only be 1 or 0")
+    } else {
+
+    db.query(`UPDATE Settings SET EnableNotifications = '${req.body.notificationStatus}' WHERE Users_idUser = ${req.params.idUser}`, (error, result) => {
+        if(error){
+            console.log(error.message)  
+            res.status(500).send("error")
+        } else {
+            console.log("Users notification status updated");
+            res.status(200).send("Users notification status updated");
+        }
+    })
+    }
+}
+
+
 exports.editSleepInformation = (req, res) => {
     db.query(`UPDATE Settings SET SleepTimeStart = '${req.body.sleepTimeStart}', SleepTimeDuration= '${req.body.sleepTimeDuration}' WHERE Users_idUser = ${req.params.idUser}`, (error, result) => {
         if(error){
