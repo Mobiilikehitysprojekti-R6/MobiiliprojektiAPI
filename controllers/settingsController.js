@@ -43,7 +43,7 @@ exports.editPassword = (req, res) => {
 
 //tämä haetaan luultavasti kirjautumisen kanssa
 exports.getSettings = (req, res) => {
-    db.query(`SELECT EnableNotifications, ThemeColor, SleepTimeStart, SleepTimeDuration FROM Settings WHERE Users_idUser=${req.params.idUser}`, (error, result) => {
+    db.query(`SELECT EnableNotifications, ThemeColor, WeekdaySleepTimeStart, SleepTimeDuration FROM Settings WHERE Users_idUser=${req.params.idUser}`, (error, result) => {
         if(error){
             console.log(error.message)
             return res.status(500).send("error")
@@ -54,15 +54,26 @@ exports.getSettings = (req, res) => {
 }
 
 exports.postSettings = (req, res) => {
-    db.query(`INSERT INTO Settings VALUES(${req.params.idUser}, ${req.body.enableNotifications},'${req.body.themeColor}',
-        '${req.body.sleepTimeStart}', ${req.body.sleepTimeDuration})`, (error, result) => {
+    db.query(`INSERT INTO Settings VALUES(${req.params.idUser}, 1,'Light', '${req.body.weekdaySleepTimeStart}',
+        '22:00',${req.body.sleepTimeDuration})`, (error, result) => {
 
         if(error) {
             console.log(error.message)
             return res.status(500).send("error")
-        } 
+        }
+
         console.log(`Settings for userID ${req.params.idUser } post ok`)
-        return res.send(201);
+
+        db.query(`CALL WeekdayStaticSleepTimes(${req.params.idUser},'${req.body.weekdaySleepTimeStart}',
+            ${req.body.sleepTimeDuration})`, (error, result) => {
+            if(error) {
+                console.log(error.message)
+                return res.status(500).send("error")
+            }
+        
+            console.log(`SleepTimes for userID ${req.params.idUser } post ok`)
+            return res.send(201);
+        })
     })
 }
 
