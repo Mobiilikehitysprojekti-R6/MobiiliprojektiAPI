@@ -94,7 +94,7 @@ exports.editPremiumStatus = (req, res) => {
         res.status(400).send("input can only be 1 or 0")
     } else {
 
-    db.query(`UPDATE Users SET PremiumAccount = '${req.body.premiumStatus}' WHERE idUser = ${req.params.idUser}`, (error, result) => {
+    db.query(`UPDATE Users SET PremiumAccount = '${req.body.premiumStatus}' WHERE idUser = ${req.body.idUser}`, (error, result) => {
         if(error){
             console.log(error.message)  
             res.status(500).send("error")
@@ -111,7 +111,7 @@ exports.editNotificationStatus = (req, res) => {
         res.status(400).send("input can only be 1 or 0")
     } else {
 
-    db.query(`UPDATE Settings SET EnableNotifications = '${req.body.notificationStatus}' WHERE Users_idUser = ${req.params.idUser}`, (error, result) => {
+    db.query(`UPDATE Settings SET EnableNotifications = '${req.body.notificationStatus}' WHERE Users_idUser = ${req.body.idUser}`, (error, result) => {
         if(error){
             console.log(error.message)  
             res.status(500).send("error")
