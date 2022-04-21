@@ -8,6 +8,6 @@ router.put("/editpremiumstatus/:idUser", settingsController.editPremiumStatus)
 router.put("/editnotificationstatus/:idUser", settingsController.editNotificationStatus)
 router.get("/:idUser", settingsController.getSettings)
 router.post("/:idUser", settingsController.postSettings)
-router.put("/editSleepInformation/:idUser", settingsController.editSleepInformation)
+router.put("/editSleepInformation", settingsController.editSleepInformation)
 
 module.exports = router;

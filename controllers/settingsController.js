@@ -125,15 +125,32 @@ exports.editNotificationStatus = (req, res) => {
 
 
 exports.editSleepInformation = (req, res) => {
-    db.query(`UPDATE Settings SET SleepTimeStart = '${req.body.sleepTimeStart}', SleepTimeDuration= '${req.body.sleepTimeDuration}' WHERE Users_idUser = ${req.params.idUser}`, (error, result) => {
-        if(error){
+    db.query(`UPDATE Settings SET WeekdaySleepTimeStart = '${req.body.sleepTimeStart}',
+            SleepTimeDuration = ${req.body.sleepTimeDuration} WHERE Users_idUser = ${req.body.idUser}`, (error, result) => {
+
+        console.log("Settings update ok, now updating sleep tasks");
+
+        if(error) {
             console.log(error.message)  
             res.status(500).send("error")
-        } else {
-            console.log("Users sleep settings updated");
-            res.status(200).send("Users sleep settings updated");
+        }
+        
+        else {
+
+            db.query(`UPDATE TASKS SET start_time = '${req.body.sleepTimeStart}', duration = ${req.body.sleepTimeDuration}
+                    WHERE Users_idUser = ${req.body.idUser} AND title = 'Sleep'`, (error, result) => {
+
+                if(error) {
+                    console.log(error.message)  
+                    res.status(500).send("error")
+                }
+                
+                else {
+                    console.log("User sleep settings and tasks updated")
+                    res.status(200).send("User sleep settings and tasks updated");
+                }
+            })
         }
     })
-    
 }
 
