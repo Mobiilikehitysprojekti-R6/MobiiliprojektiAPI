@@ -78,7 +78,7 @@ exports.postSettings = (req, res) => {
 }
 
 exports.editThemecolor = (req, res) => {
-    db.query(`UPDATE Settings SET ThemeColor = '${req.body.newColor}' WHERE Users_idUser = ${req.params.idUser}`, (error, result) => {
+    db.query(`UPDATE Settings SET ThemeColor = '${req.body.newColor}' WHERE Users_idUser = ${req.body.idUser}`, (error, result) => {
         if(error){
             console.log(error.message)
             res.status(500).send("error")

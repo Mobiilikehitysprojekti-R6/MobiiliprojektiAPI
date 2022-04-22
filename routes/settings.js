@@ -3,7 +3,7 @@ const settingsController = require('../controllers/settingsController')
 const router = express.Router()
 
 router.put("/editpassword", settingsController.editPassword)
-router.put("/edittheme/:idUser", settingsController.editThemecolor)
+router.put("/edittheme", settingsController.editThemecolor)
 router.put("/editpremiumstatus/", settingsController.editPremiumStatus)
 router.put("/editnotificationstatus/", settingsController.editNotificationStatus)
 router.get("/:idUser", settingsController.getSettings)
