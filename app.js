@@ -9,7 +9,7 @@ const BasicStrategy = require('./auth')
 app.use(express.json())
 passport.use("BasicStrategy", BasicStrategy);
 
-// Db connection test
+// Db connection
 db.connect((err) => {
     if (err) {
       console.log('error: ' + err.message)

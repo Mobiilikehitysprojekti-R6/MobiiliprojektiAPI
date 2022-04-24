@@ -1,6 +1,9 @@
 const BasicStrategy = require('passport-http').BasicStrategy
 const bcrypt = require('bcrypt');
 const db = require('./database')
+
+// Passport basic strategy
+// Compares given hash to database's hash. If it match sends idUser, username and premiumAccount data
 const strategy = new BasicStrategy((username, password, done) => {
     db.query(`SELECT * FROM Users WHERE Username="${username}"`, (error, result) => {
         if(error) console.log(error.code)

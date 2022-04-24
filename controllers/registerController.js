@@ -2,8 +2,8 @@ const db = require('../database');
 const bcrypt = require('bcrypt');
 
 exports.registerUser = (req, res) => {
-    console.log(req.body);
     const salt = bcrypt.genSaltSync(5);
+    // brypt.hashSync generates hashed password using password string and salt arguments
     const hashedPassword = bcrypt.hashSync(req.body.password, salt);
 
     if(req.body.username.length > 0 && req.body.password.length > 0){
